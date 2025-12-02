@@ -387,7 +387,7 @@
         <button class="action-btn" onclick="calculateSpeed()">احسب احتياجي</button>
 
         <div id="result" class="result-panel">
-            <div class="result-label">السرعة التي تحتاجها:</div>
+            <div class="result-label">الحد الأدنى للسرعة:</div>
             <div class="speed-display" id="speedOutput">0 Mbps</div>
             <div class="result-details" id="fullSpeedText"></div>
             <div class="rec-text" id="recommendationText"></div>
@@ -431,7 +431,7 @@
             resBox.style.display = 'flex';
 
             document.getElementById('speedOutput').innerText = displaySpeed + " Mbps";
-            document.getElementById('fullSpeedText').innerHTML = "أقصى سرعة تحتاجها: <b dir='ltr'>" + total + " Mbps</b>";
+            document.getElementById('fullSpeedText').innerHTML = "الحد الأقصى للسرعة: <b dir='ltr'>" + total + " Mbps</b>";
 
             let rec = "";
             if (total <= 100) rec = "سرعة 100 ميجابت مناسبة جداً لك.";
