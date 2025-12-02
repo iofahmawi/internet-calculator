@@ -7,10 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #000000;
-            --accent: #2563eb;
-            --bg: #ffffff;
-            --text: #1e293b;
+            --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            --accent-color: #4f46e5;
+            --bg-page: #f3f4f6;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-secondary: #64748b;
             --border-color: #cbd5e1;
         }
 
@@ -18,184 +20,222 @@
         
         body {
             font-family: 'Tajawal', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            background-color: var(--bg-page);
+            color: var(--text-main);
             margin: 0;
-            padding: 30px 20px 20px 20px;
-            display: flex;
-            justify-content: center;
+            display: block; 
+            padding-top: 23.5px;
+            padding-bottom: 50px; 
+            padding-left: 10px;
+            padding-right: 10px;
             min-height: 100vh;
-            padding-bottom: 150px !important; 
         }
 
         .main-container {
+            background-color: var(--bg-card);
             width: 100%;
-            max-width: 450px;
-            padding-bottom: 50px;
+            max-width: 480px;
+            margin: 0 auto;
+            margin-bottom: 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            padding: 25px 25px 30px 25px;
+            position: relative;
         }
 
         header {
-            margin-bottom: 25px;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            color: #000;
-            margin-top: 0; 
+            color: #111827;
+            margin: 0;
         }
 
         .section-title {
-            font-size: 1.0rem;
+            font-size: 0.9rem;
             font-weight: 800;
-            color: var(--accent);
-            margin: 30px 0 12px;
-            padding-right: 5px;
-            opacity: 0.9;
+            color: var(--accent-color);
+            margin: 20px 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
         }
 
         .device-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f8fafc;
-            min-height: 42px; 
+            padding: 8px 0;
+            border-bottom: 1px dashed #f3f4f6;
         }
-        
         .device-row:last-of-type { border-bottom: none; }
 
         .device-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .icon-box {
-            color: #94a3b8;
+            width: 38px; 
+            height: 38px;
+            background: #eef2ff;
+            border-radius: 10px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            flex-shrink: 0; 
         }
-        .icon-box svg { width: 21px; height: 21px; }
+        .icon-box svg { width: 20px; height: 20px; }
 
         .device-name {
-            font-weight: 600;
-            font-size: 1.0rem;
-            color: #334155;
-            margin-top: 2px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #374151;
         }
 
+        /* --- الكبسولة --- */
         .stepper {
-            background-color: #ffffff;
+            background-color: transparent;
             border: 1px solid var(--border-color);
             border-radius: 50px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 105px; 
-            height: 34px; 
-            overflow: hidden;
+            width: 100px; 
+            height: 32px; 
+            padding: 0;
             position: relative;
         }
 
         .stepper-btn {
+            /* مساحة اللمس */
             width: 32px;
             height: 100%;
+            
             background: transparent;
             border: none;
+            box-shadow: none;
+            
+            color: var(--accent-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem; 
-            color: #64748b;
+            
+            /* --- تم تصغير الحجم هنا --- */
+            font-size: 1.1rem; 
+            font-weight: 500;
+            
             cursor: pointer;
-            font-family: monospace;
-            padding-bottom: 2px;
+            padding-bottom: 3px;
             flex-shrink: 0;
-            z-index: 2;
+            border-radius: 50%; 
         }
 
-        .stepper-btn:active {
-            background-color: #f1f5f9;
-            color: #000;
+        .stepper-btn:active { 
+            background-color: #f1f5f9; 
         }
 
         .stepper-value {
             flex: 1;
-            min-width: 0;
-            text-align: center;
-            font-weight: 700;
-            font-size: 1.0rem;
-            border: none;
+            width: 100%;
             background: transparent;
-            color: #0f172a;
-            pointer-events: none;
+            border: none;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e293b;
             padding: 0;
             margin: 0;
-            line-height: 34px; 
+            outline: none;
         }
 
+        /* --- الزر الرئيسي --- */
         .action-btn {
-            width: 100%;
-            background: #000;
+            display: block; 
+            width: 70%;
+            max-width: 280px; 
+            margin: 25px auto 5px auto;
+            background: var(--primary-gradient);
             color: white;
             border: none;
-            padding: 12.5px;
-            font-size: 1.05rem;
+            padding: 10px 20px; 
+            font-size: 1rem; 
             font-weight: 700;
             border-radius: 50px; 
             cursor: pointer;
-            margin-top: 20.5px; 
-            margin-bottom: 50px; 
-            transition: opacity 0.2s;
+            
+            box-shadow: none; 
+            
+            transition: transform 0.2s, opacity 0.2s;
         }
-        .action-btn:active { opacity: 0.8; }
+        
+        .action-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        
+        .action-btn:active { 
+            transform: translateY(1px);
+        }
 
-        /* --- تعديلات صندوق النتيجة لضمان التناسق التام --- */
         .result-panel {
-            margin-top: 20px;
-            padding: 30px 25px; /* زيادة البادينغ الداخلي قليلاً */
-            background: #f0f9ff;
-            border-radius: 24px;
+            margin-top: 25px;
+            padding: 25px 20px;
+            background: linear-gradient(to bottom, #ffffff, #f8fafc);
+            border: 2px solid #eef2ff;
+            border-radius: 20px;
             text-align: center;
             display: none;
-            border: 1px solid #bae6fd;
-            margin-bottom: 50px;
-            
-            /* استخدام فليكس لضمان توزيع المسافات بدقة */
-            display: flex; 
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            /* هذه الخاصية تضمن وجود مسافة موحدة (20 بكسل) بين كل عنصر والآخر */
-            gap: 15px; 
+            gap: 15px;
         }
 
-        /* النصوص العلوية والسفلية */
-        .result-label, .result-details {
-            font-size: 0.9rem;
-            color: #475569;
-            margin: 0; /* إزالة الهوامش وترك التحكم للـ gap */
-            line-height: 1.6;
+        .result-label {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin: 0;
         }
 
-        /* الرقم الكبير */
         .speed-display {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 800;
-            color: var(--accent);
-            margin: 0; /* إزالة الهوامش وترك التحكم للـ gap */
-            line-height: 1.1; /* ضبط ارتفاع السطر */
+            line-height: 1;
+            margin: 5px 0;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             direction: ltr;
         }
 
+        .result-details {
+            background: #ffffff;
+            padding: 6px 12px;
+            border-radius: 50px;
+            border: 1px solid #e5e7eb;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
         .rec-text {
-            font-size: 0.95rem;
-            color: #334155;
+            font-size: 1rem;
+            color: #1e293b;
+            font-weight: 600;
             margin: 0;
-            line-height: 1.6;
-            margin-top: 5px; /* مسافة إضافية بسيطة للتوصية */
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -203,10 +243,10 @@
 
     <div class="main-container">
         <header>
-            <h1>حاسبة سرعة الإنترنت</h1>
+            <h1>حاسبة السرعة</h1>
         </header>
 
-        <div class="section-title">الشاشات</div>
+        <div class="section-title">الشاشات والمشاهدة</div>
         
         <div class="device-row">
             <div class="device-info">
@@ -244,7 +284,7 @@
             </div>
         </div>
 
-        <div class="section-title">الجوالات</div>
+        <div class="section-title">الجوالات والأجهزة</div>
 
         <div class="device-row">
             <div class="device-info">
@@ -323,17 +363,16 @@
             </div>
         </div>
 
-        <button class="action-btn" onclick="calculateSpeed()">احسب السرعة</button>
+        <button class="action-btn" onclick="calculateSpeed()">احسب احتياجي</button>
 
-        <!-- تم تحديث هيكل النتائج ليعمل بـ Flexbox -->
-        <div id="result" class="result-panel"> <!-- تمت إضافة style="display:none" عبر CSS، ويتم تغييره عبر JS -->
-            <div class="result-label">أنت بحاجة لسرعة لا تقل عن:</div>
+        <div id="result" class="result-panel">
+            <div class="result-label">السرعة التي تحتاجها:</div>
             <div class="speed-display" id="speedOutput">0 Mbps</div>
             <div class="result-details" id="fullSpeedText"></div>
             <div class="rec-text" id="recommendationText"></div>
         </div>
         
-        <div style="height: 50px;"></div>
+        <div style="height: 1px;"></div>
 
     </div>
 
@@ -355,7 +394,6 @@
             let consoles = parseInt(document.getElementById('consoles').value) || 0;
             let cloudGaming = parseInt(document.getElementById('cloudGaming').value) || 0;
 
-            // الحساب الأصلي
             let total = (tv4k * 35) + 
                         (tvFhd * 15) + 
                         (mobileHigh * 25) + 
@@ -366,26 +404,19 @@
 
             if (total < 30 && total > 0) total = 30;
 
-            // حساب 70% للعرض
             let displaySpeed = Math.ceil(total * 0.7);
 
             let resBox = document.getElementById('result');
-            
-            // يجب تعيين العرض إلى flex بدلاً من block لأننا استخدمنا display:flex في الـ CSS
             resBox.style.display = 'flex';
 
-            // عرض الرقم الكبير
             document.getElementById('speedOutput').innerText = displaySpeed + " Mbps";
+            document.getElementById('fullSpeedText').innerHTML = "الاستهلاك الأقصى: <b dir='ltr'>" + total + " Mbps</b>";
 
-            // عرض سطر السرعة الكاملة
-            document.getElementById('fullSpeedText').innerHTML = "في حالة استخدام كل الأجهزة معاً تحتاج: <span dir='ltr'>" + total + " Mbps</span>";
-
-            // نصوص التوصية
             let rec = "";
-            if (total <= 100) rec = "سرعة 100 ميجابت تغطي احتياجك.";
-            else if (total <= 200) rec = "أنسب خيار هو سرعة 200 ميجابت.";
-            else if (total <= 300) rec = "تحتاج سرعة 300 ميجابت.";
-            else rec = "الاستهلاك عالي! ننصح بسرعة 500 ميجابت أو أعلى.";
+            if (total <= 100) rec = "سرعة 100 ميجابت مناسبة جداً لك.";
+            else if (total <= 200) rec = "ننصحك بباقة 200 ميجابت لتجربة مستقرة.";
+            else if (total <= 300) rec = "تحتاج سرعة 300 ميجابت لضمان الجودة.";
+            else rec = "استهلاكك مرتفع! ننصحك بـ 500 ميجابت أو أعلى.";
 
             document.getElementById('recommendationText').innerText = rec;
             
