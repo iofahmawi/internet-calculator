@@ -186,9 +186,10 @@
             transform: translateY(1px);
         }
 
+        /* --- ضبط المسافات في النتيجة --- */
         .result-panel {
             margin-top: 25px;
-            padding: 25px 20px;
+            padding: 30px 20px; /* زيادة البادينغ قليلاً */
             background: linear-gradient(to bottom, #ffffff, #f8fafc);
             border: 2px solid #eef2ff;
             border-radius: 20px;
@@ -196,20 +197,23 @@
             display: none;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            /* تقليل الفراغ العام لأننا سنضبطه يدوياً لكل عنصر */
+            gap: 10px; 
         }
 
         .result-label {
             font-size: 0.95rem;
             color: var(--text-secondary);
             margin: 0;
+            margin-bottom: 7px; /* مسافة بسيطة تحت العنوان */
         }
 
         .speed-display {
-            font-size: 3rem;
+            font-size: 3.2rem; /* تكبير الخط قليلاً */
             font-weight: 800;
             line-height: 1;
-            margin: 5px 0;
+            margin: 0;
+            margin-bottom: 7px; /* مسافة واضحة بين الرقم والكبسولة */
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -230,7 +234,8 @@
             padding-right: 16px;
             line-height: normal; 
             gap: 5px;
-            white-space: nowrap; 
+            white-space: nowrap;
+            /* لا يوجد مارجن هنا لأن الفراغ يتم التحكم به من العنصر الذي فوقه وتحته */
         }
 
         .result-details b {
@@ -243,6 +248,7 @@
             color: #1e293b;
             font-weight: 600;
             margin: 0;
+            margin-top: 11px; /* مسافة كبيرة نسبياً لفصل النصيحة عن الكبسولة */
             line-height: 1.5;
         }
     </style>
