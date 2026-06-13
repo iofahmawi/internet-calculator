@@ -8,8 +8,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="أدوات الإنترنت">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icon-1440.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icon-1440.png">
     <title>أدوات الإنترنت</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 
@@ -1484,7 +1484,7 @@
         a.click();
         URL.revokeObjectURL(url);
         closeSidebar();
-        showToast('✓ تم تصدير البيانات');
+        showToast('تم تصدير البيانات');
     }
 
     function handleImport(event) {
@@ -1503,9 +1503,9 @@
                     if (val) document.getElementById(id).value = val;
                 });
                 closeSidebar();
-                showToast('✓ تم استيراد البيانات');
+                showToast('تم استيراد البيانات');
             } catch(err) {
-                showToast('✗ الملف غير صالح');
+                showToast('الملف غير صالح');
             }
         };
         reader.readAsText(file);
@@ -1538,7 +1538,7 @@
         document.getElementById('consResult').style.display = 'none';
         hideConsError();
         closeConfirm();
-        showToast('✓ تم مسح البيانات');
+        showToast('تم مسح البيانات');
     }
 
     // ========== SIDEBAR ==========
@@ -1659,33 +1659,24 @@
         }
         const jitter = (diffs.reduce((a, b) => a + b, 0) / diffs.length).toFixed(0);
         document.getElementById('sptJitter').textContent = jitter;
-        // تجاهل أول طلبين (إعداد الاتصال) وحساب متوسط الباقي
-        const stable = times.slice(2);
-        return Math.round(stable.reduce((a, b) => a + b, 0) / stable.length);
+        return Math.min(...times);
     }
 
     async function sptMeasureDownload() {
         const DURATION = 15000;
         const CHUNK = 5000000;
-        const STREAMS = 4; // طلبات متوازية لتشبيع خطوط السرعة العالية
         let totalBytes = 0;
         const start = Date.now();
-
-        const stream = async () => {
-            while (Date.now() - start < DURATION) {
-                if (sptAborted) break;
-                const r = await fetch(`https://speed.cloudflare.com/__down?bytes=${CHUNK}`, { cache: 'no-store' });
-                await r.arrayBuffer();
-                totalBytes += CHUNK;
-                const elapsed = (Date.now() - start) / 1000;
-                const mbps = ((totalBytes * 8) / elapsed / 1000000).toFixed(1);
-                setSptDisplay(mbps, 'Mbps');
-                setSptArc(parseFloat(mbps) / 200);
-            }
-        };
-
-        await Promise.all(Array.from({ length: STREAMS }, stream));
-
+        while (Date.now() - start < DURATION) {
+            if (sptAborted) break;
+            const r = await fetch(`https://speed.cloudflare.com/__down?bytes=${CHUNK}`, { cache: 'no-store' });
+            await r.arrayBuffer();
+            totalBytes += CHUNK;
+            const elapsed = (Date.now() - start) / 1000;
+            const mbps = ((totalBytes * 8) / elapsed / 1000000).toFixed(1);
+            setSptDisplay(mbps, 'Mbps');
+            setSptArc(parseFloat(mbps) / 200);
+        }
         sptTotalDownBytes = totalBytes;
         document.getElementById('sptDownBytes').textContent = (totalBytes / 1000000).toFixed(1);
         const elapsed = (Date.now() - start) / 1000;
@@ -1695,27 +1686,20 @@
     async function sptMeasureUpload() {
         const DURATION = 15000;
         const CHUNK = 5000000;
-        const STREAMS = 4; // طلبات متوازية
         let totalBytes = 0;
         const start = Date.now();
-        const data = new Uint8Array(CHUNK); // إنشاء مرة واحدة خارج الحلقة
-
-        const stream = async () => {
-            while (Date.now() - start < DURATION) {
-                if (sptAborted) break;
-                await fetch('https://speed.cloudflare.com/__up', {
-                    method: 'POST', body: data, cache: 'no-store'
-                });
-                totalBytes += CHUNK;
-                const elapsed = (Date.now() - start) / 1000;
-                const mbps = ((totalBytes * 8) / elapsed / 1000000).toFixed(1);
-                setSptDisplay(mbps, 'Mbps');
-                setSptArc(parseFloat(mbps) / 200);
-            }
-        };
-
-        await Promise.all(Array.from({ length: STREAMS }, stream));
-
+        while (Date.now() - start < DURATION) {
+            if (sptAborted) break;
+            const data = new Uint8Array(CHUNK);
+            await fetch('https://speed.cloudflare.com/__up', {
+                method: 'POST', body: data, cache: 'no-store'
+            });
+            totalBytes += CHUNK;
+            const elapsed = (Date.now() - start) / 1000;
+            const mbps = ((totalBytes * 8) / elapsed / 1000000).toFixed(1);
+            setSptDisplay(mbps, 'Mbps');
+            setSptArc(parseFloat(mbps) / 200);
+        }
         sptTotalUpBytes = totalBytes;
         document.getElementById('sptUpBytes').textContent = (totalBytes / 1000000).toFixed(1);
         const elapsed = (Date.now() - start) / 1000;
@@ -2164,7 +2148,7 @@
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js');
+      navigator.serviceWorker.register('/sw.js');
     });
   }
 </script>
